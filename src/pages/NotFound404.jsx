@@ -7,7 +7,7 @@ export default function NotFound() {
   const navigate = useNavigate();
 
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-br from-slate-50 via-white to-amber-50 px-4 overflow-hidden">
+    <div className="flex min-h-screen flex-col items-center justify-center bg-bg px-4 overflow-hidden transition-colors duration-500">
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
@@ -23,13 +23,13 @@ export default function NotFound() {
             damping: 15,
             delay: 0.1,
           }}
-          className="relative flex h-28 w-28 items-center justify-center rounded-3xl bg-white border border-slate-200 mb-8 shadow-lg group hover:shadow-amber-200/50 transition-all"
+          className="relative flex h-28 w-28 items-center justify-center rounded-3xl bg-surface-card border border-surface-elevated mb-8 shadow-lg group hover:shadow-primary/20 transition-all"
         >
-          <FileQuestion className="h-14 w-14 text-amber-500 transition-transform group-hover:rotate-12 duration-300" />
+          <FileQuestion className="h-14 w-14 text-primary transition-transform group-hover:rotate-12 duration-300" />
           <motion.div
             animate={{ y: [0, -12, 0] }}
             transition={{ repeat: Infinity, duration: 2 }}
-            className="absolute -top-2 -right-2 h-4 w-4 rounded-full bg-amber-300 shadow-md"
+            className="absolute -top-2 -right-2 h-4 w-4 rounded-full bg-primary shadow-md"
           />
         </motion.div>
 
@@ -37,7 +37,7 @@ export default function NotFound() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.2 }}
-          className="text-8xl font-black tracking-tighter text-slate-900 drop-shadow-md animate-pulse"
+          className="font-heading text-8xl font-black tracking-tighter text-text-main drop-shadow-md animate-pulse"
         >
           404
         </motion.h1>
@@ -46,7 +46,7 @@ export default function NotFound() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.3 }}
-          className="mt-2 text-2xl font-bold text-slate-800"
+          className="font-body mt-2 text-2xl font-bold text-text-main"
         >
           Page Not Found
         </motion.h2>
@@ -55,7 +55,7 @@ export default function NotFound() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.4 }}
-          className="mt-4 text-slate-600 font-medium leading-relaxed"
+          className="font-body mt-4 text-text-main opacity-60 font-medium leading-relaxed"
         >
           Oops! The page you’re looking for has vanished into the cinema void.
         </motion.p>
@@ -68,7 +68,7 @@ export default function NotFound() {
         >
           <Button
             asChild
-            className="bg-gradient-to-r from-slate-900 to-amber-600 hover:opacity-90 text-white h-12 px-8 rounded-xl transition-all shadow-lg hover:shadow-amber-200/50 active:scale-95"
+            className="bg-primary hover:bg-primary-dark text-white h-12 px-8 rounded-xl transition-all shadow-lg shadow-primary/20 active:scale-95 border-none font-bold"
           >
             <Link to="/" className="flex items-center gap-2">
               <Home className="h-4 w-4" />
@@ -79,7 +79,7 @@ export default function NotFound() {
           <Button
             onClick={() => navigate(-1)}
             variant="outline"
-            className="border-slate-300 text-slate-700 h-12 px-8 rounded-xl hover:bg-slate-100 transition-all shadow-sm active:scale-95"
+            className="border-surface-elevated text-text-main h-12 px-8 rounded-xl hover:bg-surface-card transition-all shadow-sm active:scale-95 bg-transparent"
           >
             <div className="flex items-center gap-2">
               <ArrowLeft className="h-4 w-4" />

@@ -1,1 +1,52 @@
 @import "tailwindcss";
+
+@theme {
+  --font-heading: "Bebas Neue", cursive;
+  --font-body: "DM Sans", sans-serif;
+
+  --color-primary: var(--primary);
+  --color-primary-dark: var(--primary-dark);
+  --color-bg: var(--bg);
+  --color-surface-card: var(--surface-card);
+  --color-surface-elevated: var(--surface-elevated);
+  --color-text-main: var(--text-main);
+}
+
+:root {
+  --primary: #e50914;
+  --primary-dark: #b81d24;
+  --bg: #ffffff;
+  --surface-card: #f3f4f6;
+  --surface-elevated: #e5e7eb;
+  --text-main: #111827;
+}
+
+.dark {
+  --bg: #0f0f0f;
+  --surface-card: #1c1c1c;
+  --surface-elevated: #242424;
+  --text-main: #f9fafb;
+}
+
+@layer base {
+  * {
+    @apply transition-colors duration-300;
+  }
+
+  body {
+    background-color: var(--bg);
+    color: var(--text-main);
+    font-family: var(--font-body);
+  }
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--primary);
+  border-radius: 3px;
+}

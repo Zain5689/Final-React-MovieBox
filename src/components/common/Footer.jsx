@@ -1,23 +1,24 @@
-import { Link } from "react-router-dom";
-import { Film, Heart } from "lucide-react";
+import { Heart } from "lucide-react";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="w-full bg-white border-t border-slate-100 py-6">
-      <div className="container mx-auto px-6 flex flex-col items-center gap-6">
-        <div className="flex items-center gap-2 text-sm font-medium text-slate-400">
+    <footer className="w-full py-10 transition-colors duration-300 border-t border-surface-elevated">
+      <div className="flex flex-col items-center gap-4">
+        <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-4 text-sm font-medium text-text-main/50">
           <span>© {currentYear} ITI Project</span>
-          <span className="text-slate-200">|</span>
-          <span className="flex items-center gap-1">
+
+          <span className="hidden sm:block text-surface-elevated">|</span>
+
+          <span className="flex items-center gap-1.5">
             Made with
             <Heart
-              size={12}
-              className="text-rose-500 fill-rose-500 animate-pulse"
-              aria-label="love"
+              size={14}
+              className="text-primary fill-primary animate-pulse"
             />
-            by the Dev Team
+            by{" "}
+            <span className="text-text-main font-semibold">Zainab Hilal</span>
           </span>
         </div>
       </div>

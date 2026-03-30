@@ -1,10 +1,11 @@
 import { Link, useLocation } from "react-router-dom";
 import { Heart, User, Film, Sun, Moon } from "lucide-react";
+import { useMovieStore } from "@/store/useMovieStore";
 
 const Navbar = ({ isDark, setIsDark }) => {
-  const wishlistCount = 5;
   const location = useLocation();
-
+  const { wishlist } = useMovieStore();
+  const wishlistCount = wishlist.length;
   const navLinks = [
     { name: "Movies", path: "/" },
     { name: "TV Shows", path: "/tv" },
@@ -60,7 +61,6 @@ const Navbar = ({ isDark, setIsDark }) => {
         </button>
 
         <div className="h-5 w-px bg-surface-elevated mx-1" />
-
         <Link
           to="/wishlist"
           className="relative p-2 text-text-main opacity-70 hover:opacity-100 hover:text-primary transition-all"
@@ -69,6 +69,7 @@ const Navbar = ({ isDark, setIsDark }) => {
             size={22}
             className={wishlistCount > 0 ? "fill-primary text-primary" : ""}
           />
+
           {wishlistCount > 0 && (
             <span className="absolute top-1 right-1 bg-primary text-white text-[10px] font-bold w-4 h-4 flex items-center justify-center rounded-full border-2 border-bg">
               {wishlistCount}

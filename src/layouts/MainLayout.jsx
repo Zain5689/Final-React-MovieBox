@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Outlet } from "react-router";
 import Navbar from "@/components/common/Navbar";
 import Footer from "@/components/common/Footer";
+import BackToTop from "@/components/common/BackToTop";
 
 export default function MainLayout() {
   const [isDark, setIsDark] = useState(
@@ -39,6 +40,10 @@ export default function MainLayout() {
           <Footer />
         </div>
       </footer>
+
+      <div id="back-to-top">
+        <BackToTop />
+      </div>
     </div>
   );
 }

@@ -13,8 +13,9 @@
 }
 
 :root {
-  --primary: #e50914;
-  --primary-dark: #b81d24;
+  --primary: #38bdf8;
+  --primary-dark: #0ea5e9;
+
   --bg: #ffffff;
   --surface-card: #f3f4f6;
   --surface-elevated: #e5e7eb;

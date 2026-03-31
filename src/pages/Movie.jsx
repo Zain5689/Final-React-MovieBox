@@ -1,28 +1,36 @@
-import { useState, useEffect } from "react";
-import axios from "axios";
-import MovieCard from "../components/movieComponents/MovieCard";
+import { HeroSection } from "@/components/movieComponents/HeroSection";
+import { MovieGrid } from "@/components/movieComponents/MovieGrid";
+import { useMovies } from "@/hooks/useMovies";
+import { useState } from "react";
 
 export default function Home() {
-  const [movies, setMovies] = useState([]);
   const [page, setPage] = useState(1);
-  const apiKey = "392e7da67e8860f48faaf7ea3b1d1599";
-
-  useEffect(() => {
-    const fetchMovies = async () => {
-      const url = `https://api.themoviedb.org/3/movie/now_playing?api_key=${apiKey}&page=${page}`;
-      const response = await axios.get(url);
-      setMovies(response.data.results);
-    };
-    fetchMovies();
-  }, [page]);
+  const { movies, totalPages, heroMovie, loading } = useMovies(page);
 
   return (
-    <div>
-      <h1 className="text-3xl font-heading mb-8">Now Playing</h1>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
-        {movies.map((movie) => (
-          <MovieCard key={movie.id} movie={movie} />
-        ))}
+    <div className="pb-10">
+      {heroMovie && page === 1 && <HeroSection movie={heroMovie} />}
+
+      <div className="container mx-auto px-4">
+        <header className="flex justify-between items-center mb-8 border-l-4 border-primary pl-4">
+          <h2 className="text-3xl font-bold text-text-main uppercase tracking-tight">
+            Now Playing
+          </h2>
+          <span className="text-sm font-medium text-text-main/50 uppercase tracking-widest">
+            {movies.length} Releases
+          </span>
+        </header>
+
+        <MovieGrid
+          movies={movies}
+          loading={loading}
+          currentPage={page}
+          totalPages={totalPages}
+          onPageChange={(newPage) => {
+            setPage(newPage);
+            window.scrollTo({ top: 0, behavior: "smooth" });
+          }}
+        />
       </div>
     </div>
   );

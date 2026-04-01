@@ -4,7 +4,7 @@ const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="w-full py-10 transition-colors duration-300 border-t border-surface-elevated">
+    <footer className="w-full py-5 transition-colors duration-300 border-t border-surface-elevated">
       <div className="flex flex-col items-center gap-4">
         <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-4 text-sm font-medium text-text-main/50">
           <span>© {currentYear} ITI Project</span>

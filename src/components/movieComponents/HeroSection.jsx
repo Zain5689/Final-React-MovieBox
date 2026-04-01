@@ -4,7 +4,7 @@ export const HeroSection = ({ movie, searchQuery, setSearchQuery }) => {
   if (!movie) return null;
 
   return (
-    <section className="relative min-h-[80vh] flex items-center justify-center overflow-hidden bg-bg">
+    <section className="relative min-h-[80vh] flex items-center justify-center overflow-hidden bg-bg rounded-2xl">
       {/* Cinematic Background Backdrop */}
       <div className="absolute inset-0 z-0">
         <img

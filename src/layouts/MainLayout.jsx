@@ -19,7 +19,7 @@ export default function MainLayout() {
     }
   }, [isDark]);
 
-  const containerStyles = "max-w-7xl mx-auto px-6 md:px-12 lg:px-16";
+  const containerStyles = "max-w-7xl mx-auto px-0 md:px-12 lg:px-8";
 
   return (
     <div className="min-h-screen flex flex-col bg-bg text-text-main transition-colors duration-300 selection:bg-primary/20 selection:text-primary">

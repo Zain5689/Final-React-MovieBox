@@ -21,40 +21,49 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <Movie />,
+        handle: { title: "Movies - Movie App" },
       },
       {
         path: "login",
         element: <Login />,
+        handle: { title: "Login" },
       },
       {
         path: "register",
         element: <Register />,
+        handle: { title: "Register" },
       },
       {
         path: "tv",
         element: <TvWatch />,
+        handle: { title: "TV Shows" },
       },
       {
         path: "people",
         element: <People />,
+        handle: { title: "People" },
       },
       {
         path: "movie/:id",
         element: <MovieDetails />,
+        handle: { title: "Movie Details" },
       },
       {
         path: "user",
         element: <UserPage />,
+        handle: { title: "My Profile" },
       },
       {
         path: "wishlist",
         element: <WishList />,
+        handle: { title: "Wishlist" },
       },
     ],
   },
   {
     path: "*",
     element: <NotFound404 />,
+    handle: { title: "404 - Page Not Found" },
   },
 ]);
 

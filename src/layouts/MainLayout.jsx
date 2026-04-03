@@ -3,6 +3,7 @@ import { Outlet } from "react-router";
 import Navbar from "@/components/common/Navbar";
 import Footer from "@/components/common/Footer";
 import BackToTop from "@/components/common/BackToTop";
+import PageTitleSetter from "@/components/common/PageTitleSetter";
 
 export default function MainLayout() {
   const [isDark, setIsDark] = useState(
@@ -28,6 +29,8 @@ export default function MainLayout() {
           <Navbar isDark={isDark} setIsDark={setIsDark} />
         </div>
       </header>
+
+      <PageTitleSetter />
 
       <main className="grow w-full py-8">
         <div className={containerStyles}>

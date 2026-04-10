@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 
-const API_KEY = "392e7da67e8860f48faaf7ea3b1d1599";
+const API_KEY = import.meta.env.VITE_TMDB_API_KEY;
 const BASE_URL = "https://api.themoviedb.org/3";
 
 export const useMovies = (page = 1) => {
@@ -20,7 +20,7 @@ export const useMovies = (page = 1) => {
         setMovies(nowPlayingRes.data.results);
         setTotalPages(nowPlayingRes.data.total_pages);
 
-        if (page === 1) {
+        if (page === 1 && !heroMovie) {
           const popularRes = await axios.get(
             `${BASE_URL}/movie/popular?api_key=${API_KEY}`,
           );

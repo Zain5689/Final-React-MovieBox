@@ -1,11 +1,13 @@
 import { HeroSection } from "@/components/movieComponents/HeroSection";
 import { MovieGrid } from "@/components/movieComponents/MovieGrid";
 import { useMovies } from "@/hooks/useMovies";
+import { useMovieStore } from "@/store/useMovieStore";
 import { useState } from "react";
 
 export default function Home() {
   const [page, setPage] = useState(1);
   const { movies, totalPages, heroMovie, loading } = useMovies(page);
+  const { wishlist, toggleWishlist } = useMovieStore();
 
   const handlePageChange = (newPage) => {
     setPage(newPage);
@@ -17,7 +19,13 @@ export default function Home() {
 
   return (
     <div className="pb-10">
-      {heroMovie && <HeroSection movie={heroMovie} />}
+      {heroMovie && (
+        <HeroSection
+          movie={heroMovie}
+          isWishlisted={wishlist.some((m) => m.id === heroMovie.id)}
+          onToggleWishlist={() => toggleWishlist(heroMovie)}
+        />
+      )}
 
       <div id="now-playing-section" className="container mx-auto px-4 mt-8">
         <header className="flex justify-between items-center mb-8 border-l-4 border-primary pl-4">

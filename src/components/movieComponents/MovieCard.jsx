@@ -1,13 +1,23 @@
 import { useState } from "react";
 import { Play, Heart, Star } from "lucide-react";
+import toast from "react-hot-toast";
+import { useMovieStore } from "@/store/useMovieStore";
 
 export const MovieCard = ({ movie }) => {
   const [isHovered, setIsHovered] = useState(false);
-  const [isWishlisted, setIsWishlisted] = useState(false);
+  const { wishlist, toggleWishlist } = useMovieStore();
 
-  const toggleWishlist = (e) => {
+  const isWishlisted = wishlist.some((m) => m.id === movie.id);
+
+  const handleWishlistToggle = (e) => {
     e.preventDefault();
-    setIsWishlisted(!isWishlisted);
+    toggleWishlist(movie);
+
+    if (!isWishlisted) {
+      toast.success(`Added ${movie.title} to wishlist`);
+    } else {
+      toast.error(`Removed ${movie.title} from wishlist`);
+    }
   };
 
   return (
@@ -16,9 +26,8 @@ export const MovieCard = ({ movie }) => {
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      {/* Wishlist Icon - Always on top */}
       <button
-        onClick={toggleWishlist}
+        onClick={handleWishlistToggle}
         className={`absolute top-3 right-3 z-20 p-2 rounded-full backdrop-blur-md transition-all duration-300 ${
           isWishlisted
             ? "bg-primary text-white scale-110"
@@ -32,7 +41,6 @@ export const MovieCard = ({ movie }) => {
         />
       </button>
 
-      {/* Image Poster */}
       <div className="aspect-2/3">
         <img
           src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
@@ -41,7 +49,6 @@ export const MovieCard = ({ movie }) => {
         />
       </div>
 
-      {/* Overlay Details */}
       <div
         className={`absolute inset-0 bg-linear-to-t from-black via-black/40 to-transparent transition-opacity duration-300 flex flex-col justify-end ${
           isHovered ? "opacity-100" : "opacity-0"

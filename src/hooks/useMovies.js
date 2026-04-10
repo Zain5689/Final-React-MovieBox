@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 
 const API_KEY = import.meta.env.VITE_TMDB_API_KEY;
-const BASE_URL = "https://api.themoviedb.org/3";
+const BASE_URL = import.meta.env.VITE_TMDB_BASE_URL;
 
 export const useMovies = (page = 1) => {
   const [movies, setMovies] = useState([]);

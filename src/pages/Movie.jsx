@@ -3,9 +3,11 @@ import { MovieGrid } from "@/components/movieComponents/MovieGrid";
 import { useMovies } from "@/hooks/useMovies";
 import { useMovieStore } from "@/store/useMovieStore";
 import { useState } from "react";
+import SearchResults from "./SearchResults";
 
 export default function Home() {
   const [page, setPage] = useState(1);
+  const [searchQuery, setSearchQuery] = useState("");
   const { movies, totalPages, heroMovie, loading } = useMovies(page);
   const { wishlist, toggleWishlist } = useMovieStore();
 
@@ -22,28 +24,36 @@ export default function Home() {
       {heroMovie && (
         <HeroSection
           movie={heroMovie}
+          searchQuery={searchQuery}
+          setSearchQuery={setSearchQuery}
           isWishlisted={wishlist.some((m) => m.id === heroMovie.id)}
           onToggleWishlist={() => toggleWishlist(heroMovie)}
         />
       )}
 
       <div id="now-playing-section" className="container mx-auto px-4 mt-8">
-        <header className="flex justify-between items-center mb-8 border-l-4 border-primary pl-4">
-          <h2 className="text-3xl font-bold text-text-main uppercase tracking-tight">
-            Now Playing
-          </h2>
-          <span className="text-sm font-medium text-text-main/50 uppercase tracking-widest">
-            {movies.length} Releases
-          </span>
-        </header>
+        {searchQuery.trim().length > 0 ? (
+          <SearchResults query={searchQuery} />
+        ) : (
+          <>
+            <header className="flex justify-between items-center mb-8 border-l-4 border-primary pl-4">
+              <h2 className="text-3xl font-bold text-text-main uppercase tracking-tight">
+                Now Playing
+              </h2>
+              <span className="text-sm font-medium text-text-main/50 uppercase tracking-widest">
+                {movies.length} Releases
+              </span>
+            </header>
 
-        <MovieGrid
-          movies={movies}
-          loading={loading}
-          currentPage={page}
-          totalPages={totalPages}
-          onPageChange={handlePageChange}
-        />
+            <MovieGrid
+              movies={movies}
+              loading={loading}
+              currentPage={page}
+              totalPages={totalPages}
+              onPageChange={handlePageChange}
+            />
+          </>
+        )}
       </div>
     </div>
   );

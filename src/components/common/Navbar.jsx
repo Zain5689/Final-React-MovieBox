@@ -6,9 +6,9 @@ const Navbar = ({ isDark, setIsDark }) => {
   const location = useLocation();
   const { wishlist } = useMovieStore();
   const wishlistCount = wishlist.length;
+
   const navLinks = [
     { name: "Movies", path: "/" },
-    { name: "TV Shows", path: "/tv" },
     { name: "People", path: "/people" },
   ];
 
@@ -25,7 +25,11 @@ const Navbar = ({ isDark, setIsDark }) => {
 
       <div className="hidden md:flex items-center gap-8">
         {navLinks.map((link) => {
-          const isActive = location.pathname === link.path;
+          const isActive =
+            link.path === "/"
+              ? location.pathname === "/"
+              : location.pathname.startsWith(link.path);
+
           return (
             <Link
               key={link.name}
@@ -61,6 +65,7 @@ const Navbar = ({ isDark, setIsDark }) => {
         </button>
 
         <div className="h-5 w-px bg-surface-elevated mx-1" />
+
         <Link
           to="/wishlist"
           className="relative p-2 text-text-main opacity-70 hover:opacity-100 hover:text-primary transition-all"

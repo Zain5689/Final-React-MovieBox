@@ -8,10 +8,10 @@ import Login from "./pages/Login";
 import Movie from "./pages/Movie";
 import People from "./pages/People";
 import MovieDetails from "./pages/movieDetails";
-import TvWatch from "./pages/TvWatch";
 import UserPage from "./pages/UserPage";
 import WishList from "./pages/wishList";
 import Register from "./pages/Register";
+import SearchResults from "./pages/SearchResults";
 
 const router = createBrowserRouter([
   {
@@ -33,11 +33,7 @@ const router = createBrowserRouter([
         element: <Register />,
         handle: { title: "Register" },
       },
-      {
-        path: "tv",
-        element: <TvWatch />,
-        handle: { title: "TV Shows" },
-      },
+
       {
         path: "people",
         element: <People />,
@@ -57,6 +53,11 @@ const router = createBrowserRouter([
         path: "wishlist",
         element: <WishList />,
         handle: { title: "Wishlist" },
+      },
+      {
+        path: "search",
+        element: <SearchResults />,
+        handle: { title: "Search" },
       },
     ],
   },

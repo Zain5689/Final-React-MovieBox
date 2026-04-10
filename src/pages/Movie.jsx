@@ -7,11 +7,19 @@ export default function Home() {
   const [page, setPage] = useState(1);
   const { movies, totalPages, heroMovie, loading } = useMovies(page);
 
+  const handlePageChange = (newPage) => {
+    setPage(newPage);
+    const gridElement = document.getElementById("now-playing-section");
+    if (gridElement) {
+      gridElement.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
   return (
     <div className="pb-10">
-      {heroMovie && page === 1 && <HeroSection movie={heroMovie} />}
+      {heroMovie && <HeroSection movie={heroMovie} />}
 
-      <div className="container mx-auto px-4">
+      <div id="now-playing-section" className="container mx-auto px-4 mt-8">
         <header className="flex justify-between items-center mb-8 border-l-4 border-primary pl-4">
           <h2 className="text-3xl font-bold text-text-main uppercase tracking-tight">
             Now Playing
@@ -26,10 +34,7 @@ export default function Home() {
           loading={loading}
           currentPage={page}
           totalPages={totalPages}
-          onPageChange={(newPage) => {
-            setPage(newPage);
-            window.scrollTo({ top: 0, behavior: "smooth" });
-          }}
+          onPageChange={handlePageChange}
         />
       </div>
     </div>

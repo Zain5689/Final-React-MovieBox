@@ -12,6 +12,7 @@ import UserPage from "./pages/UserPage";
 import WishList from "./pages/wishList";
 import Register from "./pages/Register";
 import SearchResults from "./pages/SearchResults";
+import PersonDetails from "./pages/PersonDetails";
 
 const router = createBrowserRouter([
   {
@@ -38,6 +39,11 @@ const router = createBrowserRouter([
         path: "people",
         element: <People />,
         handle: { title: "People" },
+      },
+      {
+        path: "people/:id",
+        element: <PersonDetails />,
+        handle: { title: "PersonDetails" },
       },
       {
         path: "movie/:id",

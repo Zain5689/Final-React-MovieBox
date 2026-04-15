@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Play, Heart, Star } from "lucide-react";
 import toast from "react-hot-toast";
 import { useMovieStore } from "@/store/useMovieStore";
+import { Link } from "react-router-dom";
 
 export const MovieCard = ({ movie }) => {
   const [isHovered, setIsHovered] = useState(false);
@@ -67,9 +68,12 @@ export const MovieCard = ({ movie }) => {
             </span>
           </div>
 
-          <button className="w-full flex items-center justify-center gap-2 bg-primary hover:bg-primary-dark text-white text-sm font-bold py-2.5 rounded-xl transition-all active:scale-95 shadow-lg">
+          <Link
+            to={`/movie/${movie.id}`}
+            className="w-full flex items-center justify-center gap-2 bg-primary hover:bg-primary-dark text-white text-sm font-bold py-2.5 rounded-xl transition-all active:scale-95 shadow-lg"
+          >
             <Play size={16} fill="white" /> Watch Now
-          </button>
+          </Link>
         </div>
       </div>
     </div>

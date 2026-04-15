@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import { useSearchParams, Link } from "react-router-dom";
 import axios from "axios";
-import { Loader2, Film, Star, Play, Calendar } from "lucide-react";
+import { Loader2, Film } from "lucide-react";
+import { MovieCard } from "@/components/movieComponents/MovieCard";
 
 const API_KEY = import.meta.env.VITE_TMDB_API_KEY;
 const BASE_URL = import.meta.env.VITE_TMDB_BASE_URL;
@@ -20,7 +21,13 @@ const SearchResults = () => {
         const res = await axios.get(
           `${BASE_URL}/search/multi?api_key=${API_KEY}&query=${query}`,
         );
-        setResults(res.data.results.filter((item) => item.poster_path));
+        const filteredData = res.data.results
+          .filter((item) => item.poster_path)
+          .map((item) => ({
+            ...item,
+            title: item.title || item.name,
+          }));
+        setResults(filteredData);
       } catch (err) {
         console.error(err);
       } finally {
@@ -44,7 +51,7 @@ const SearchResults = () => {
     );
 
   return (
-    <div className="min-h-screen bg-bg pb-20 pt-28 px-4 sm:px-8">
+    <div className="min-h-screen bg-bg pb-20 pt-10 px-4 sm:px-8">
       <div className="max-w-7xl mx-auto">
         <header className="relative mb-16">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
@@ -77,51 +84,8 @@ const SearchResults = () => {
                   ? `/tv/${item.id}`
                   : `/movie/${item.id}`
               }
-              className="group relative flex flex-col gap-4"
             >
-              <div className="relative aspect-[2/3] rounded-2xl overflow-hidden shadow-2xl transition-all duration-500 group-hover:scale-[1.02] group-hover:shadow-primary/20">
-                <img
-                  src={`https://image.tmdb.org/t/p/w500${item.poster_path}`}
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                  alt={item.title || item.name}
-                />
-
-                <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center">
-                  <div className="w-14 h-14 bg-primary rounded-full flex items-center justify-center scale-75 group-hover:scale-100 transition-transform duration-500 shadow-xl shadow-primary/40">
-                    <Play size={24} fill="white" className="text-white ml-1" />
-                  </div>
-                </div>
-
-                <div className="absolute top-3 right-3 flex flex-col gap-2 translate-x-10 group-hover:translate-x-0 transition-transform duration-500">
-                  <div className="bg-black/60 backdrop-blur-md p-2 rounded-lg border border-white/10 flex items-center gap-1.5">
-                    <Star
-                      size={14}
-                      className="text-yellow-400 fill-yellow-400"
-                    />
-                    <span className="text-white text-xs font-black">
-                      {item.vote_average?.toFixed(1)}
-                    </span>
-                  </div>
-                </div>
-              </div>
-
-              <div className="space-y-1">
-                <div className="flex items-center gap-2 opacity-60 group-hover:opacity-100 transition-opacity">
-                  <Calendar size={12} className="text-primary" />
-                  <span className="text-[10px] font-bold text-text-main uppercase tracking-tighter">
-                    {(item.release_date || item.first_air_date)?.split(
-                      "-",
-                    )[0] || "N/A"}
-                  </span>
-                  <span className="text-text-main/20">•</span>
-                  <span className="text-[10px] font-black text-primary uppercase">
-                    {item.media_type}
-                  </span>
-                </div>
-                <h3 className="text-text-main font-bold text-base leading-tight group-hover:text-primary transition-colors line-clamp-1">
-                  {item.title || item.name}
-                </h3>
-              </div>
+              <MovieCard movie={item} />
             </Link>
           ))}
         </div>

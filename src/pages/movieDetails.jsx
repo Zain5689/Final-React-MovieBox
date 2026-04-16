@@ -20,7 +20,7 @@ export default function MovieDetails() {
   const isWishlisted = wishlist.some((m) => m.id === movie?.id);
 
   return (
-    <div className="min-h-screen text-white overflow-x-hidden selection:bg-primary bg-[#080808]">
+    <div className="min-h-screen text-white overflow-x-hidden selection:bg-primary">
       <div className="fixed inset-0 pointer-events-none overflow-hidden opacity-[0.03] select-none">
         <h1 className="text-[30vw] font-black leading-none uppercase whitespace-nowrap -rotate-12 translate-y-1/4">
           {movie.title}

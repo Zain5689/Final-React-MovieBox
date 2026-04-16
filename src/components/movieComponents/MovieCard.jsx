@@ -3,21 +3,27 @@ import { Play, Heart, Star } from "lucide-react";
 import toast from "react-hot-toast";
 import { useMovieStore } from "@/store/useMovieStore";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export const MovieCard = ({ movie }) => {
   const [isHovered, setIsHovered] = useState(false);
   const { wishlist, toggleWishlist } = useMovieStore();
+  const navigate = useNavigate();
 
   const isWishlisted = wishlist.some((m) => m.id === movie.id);
 
-  const handleWishlistToggle = (e) => {
+  const handleWishlistClick = (e) => {
     e.preventDefault();
-    toggleWishlist(movie);
 
-    if (!isWishlisted) {
-      toast.success(`Added ${movie.title} to wishlist`);
+    const result = toggleWishlist(movie);
+
+    if (result === "NEED_AUTH") {
+      toast.error("Please login to add to wishlist! ❤️");
+      navigate("/login");
+    } else if (result === "ADDED") {
+      toast.success("Added to favorites!");
     } else {
-      toast.error(`Removed ${movie.title} from wishlist`);
+      toast.success("Removed from favorites!");
     }
   };
 
@@ -28,7 +34,7 @@ export const MovieCard = ({ movie }) => {
       onMouseLeave={() => setIsHovered(false)}
     >
       <button
-        onClick={handleWishlistToggle}
+        onClick={handleWishlistClick}
         className={`absolute top-3 right-3 z-20 p-2 rounded-full backdrop-blur-md transition-all duration-300 ${
           isWishlisted
             ? "bg-primary text-white scale-110"

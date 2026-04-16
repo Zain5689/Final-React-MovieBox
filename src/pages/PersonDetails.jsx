@@ -9,7 +9,7 @@ export default function PersonDetails() {
 
   if (loading || !person) {
     return (
-      <div className="h-screen bg-black flex items-center justify-center font-mono">
+      <div className="h-screen  flex items-center justify-center font-mono">
         <div className="text-primary text-5xl animate-pulse font-black italic">
           LOADING_TALENT...
         </div>
@@ -18,7 +18,7 @@ export default function PersonDetails() {
   }
 
   return (
-    <div className="min-h-screen bg-[#080808] text-white selection:bg-primary overflow-x-hidden">
+    <div className="min-h-screen  text-white selection:bg-primary overflow-x-hidden">
       <div className="fixed inset-0 pointer-events-none opacity-[0.02] select-none z-0">
         <h1 className="text-[30vw] font-black leading-none uppercase -rotate-12 translate-y-1/3">
           {person.name?.split(" ")[0]}
@@ -26,7 +26,7 @@ export default function PersonDetails() {
       </div>
 
       <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 min-h-screen">
-        <div className="lg:col-span-4 border-r border-white/5 p-8 lg:p-12 flex flex-col bg-[#080808]/50 backdrop-blur-sm">
+        <div className="lg:col-span-4 border-r border-white/5 p-8 lg:p-12 flex flex-col  backdrop-blur-sm">
           <button
             onClick={() => navigate(-1)}
             className="mb-12 p-4 w-fit hover:bg-primary rounded-full transition-colors group"

@@ -13,6 +13,14 @@ import WishList from "./pages/wishList";
 import Register from "./pages/Register";
 import SearchResults from "./pages/SearchResults";
 import PersonDetails from "./pages/PersonDetails";
+import { Navigate } from "react-router-dom";
+import { useMovieStore } from "./store/useMovieStore";
+
+const PrivateRoute = ({ children }) => {
+  const isAuthenticated = useMovieStore((state) => state.isAuthenticated);
+
+  return isAuthenticated ? children : <Navigate to="/login" />;
+};
 
 const router = createBrowserRouter([
   {
@@ -57,7 +65,11 @@ const router = createBrowserRouter([
       },
       {
         path: "wishlist",
-        element: <WishList />,
+        element: (
+          <PrivateRoute>
+            <WishList />
+          </PrivateRoute>
+        ),
         handle: { title: "Wishlist" },
       },
       {

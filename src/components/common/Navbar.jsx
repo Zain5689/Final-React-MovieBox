@@ -1,10 +1,10 @@
 import { Link, useLocation } from "react-router-dom";
-import { Heart, User, Film, Sun, Moon } from "lucide-react";
+import { Heart, User, Film, Sun, Moon, LogOut } from "lucide-react";
 import { useMovieStore } from "@/store/useMovieStore";
 
 const Navbar = ({ isDark, setIsDark }) => {
   const location = useLocation();
-  const { wishlist } = useMovieStore();
+  const { wishlist, user, logout } = useMovieStore();
   const wishlistCount = wishlist.length;
 
   const navLinks = [
@@ -18,7 +18,7 @@ const Navbar = ({ isDark, setIsDark }) => {
         <div className="w-9 h-9 bg-primary rounded-lg flex items-center justify-center shadow-lg shadow-primary/20 transition-transform group-hover:scale-110">
           <Film className="text-white" size={20} />
         </div>
-        <span className="font-heading text-2xl tracking-wider text-text-main transition-colors">
+        <span className="font-heading text-2xl tracking-wider text-text-main">
           CINE<span className="text-primary">STREAM</span>
         </span>
       </Link>
@@ -29,18 +29,11 @@ const Navbar = ({ isDark, setIsDark }) => {
             link.path === "/"
               ? location.pathname === "/"
               : location.pathname.startsWith(link.path);
-
           return (
             <Link
               key={link.name}
               to={link.path}
-              className={`font-body text-[15px] font-semibold transition-all relative py-1
-                ${
-                  isActive
-                    ? "text-primary"
-                    : "text-text-main opacity-70 hover:opacity-100 hover:text-primary"
-                }
-              `}
+              className={`font-body text-[15px] font-semibold transition-all relative py-1 ${isActive ? "text-primary" : "text-text-main opacity-70 hover:opacity-100 hover:text-primary"}`}
             >
               {link.name}
               {isActive && (
@@ -55,7 +48,6 @@ const Navbar = ({ isDark, setIsDark }) => {
         <button
           onClick={() => setIsDark(!isDark)}
           className="p-2 rounded-full bg-surface-card text-text-main border border-surface-elevated hover:border-primary transition-all active:scale-90"
-          aria-label="Toggle Theme"
         >
           {isDark ? (
             <Sun size={20} className="text-primary" />
@@ -74,7 +66,6 @@ const Navbar = ({ isDark, setIsDark }) => {
             size={22}
             className={wishlistCount > 0 ? "fill-primary text-primary" : ""}
           />
-
           {wishlistCount > 0 && (
             <span className="absolute top-1 right-1 bg-primary text-white text-[10px] font-bold w-4 h-4 flex items-center justify-center rounded-full border-2 border-bg">
               {wishlistCount}
@@ -82,13 +73,30 @@ const Navbar = ({ isDark, setIsDark }) => {
           )}
         </Link>
 
-        <Link
-          to="/login"
-          className="flex items-center gap-2 bg-primary hover:bg-primary-dark text-white px-5 py-2 rounded-md font-bold text-sm transition-all active:scale-95 shadow-md shadow-primary/20"
-        >
-          <User size={16} />
-          <span className="hidden sm:inline">Sign In</span>
-        </Link>
+        {user ? (
+          <div className="flex items-center gap-3 bg-surface-card pl-1 pr-3 py-1 rounded-full border border-surface-elevated shadow-sm">
+            <div className="w-8 h-8 rounded-full bg-primary flex items-center justify-center text-white font-bold uppercase shadow-inner">
+              {user.username?.charAt(0)}
+            </div>
+            <span className="text-sm font-semibold text-text-main hidden sm:block max-w-25 truncate capitalize">
+              {user.username}
+            </span>
+            <button
+              onClick={logout}
+              className="ml-2 p-1 text-text-main opacity-60 hover:opacity-100 hover:text-primary transition-all"
+            >
+              <LogOut size={18} />
+            </button>
+          </div>
+        ) : (
+          <Link
+            to="/login"
+            className="flex items-center gap-2 bg-primary hover:bg-primary-dark text-white px-5 py-2 rounded-md font-bold text-sm transition-all active:scale-95 shadow-md shadow-primary/20"
+          >
+            <User size={16} />
+            <span className="hidden sm:inline">Sign In</span>
+          </Link>
+        )}
       </div>
     </nav>
   );

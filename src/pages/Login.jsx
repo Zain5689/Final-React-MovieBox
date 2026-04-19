@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Mail, Lock, LogIn, ArrowRight } from "lucide-react";
-import { Link, useNavigate } from "react-router";
+import { Link, useNavigate } from "react-router-dom";
 import { useMovieStore } from "../store/useMovieStore";
 import toast from "react-hot-toast";
 import { loginUser } from "@/api/authService";
@@ -8,27 +8,21 @@ import { loginUser } from "@/api/authService";
 const Login = () => {
   const navigate = useNavigate();
   const setUser = useMovieStore((state) => state.setUser);
-
-  const [formData, setFormData] = useState({
-    email: "",
-    password: "",
-  });
+  const [formData, setFormData] = useState({ email: "", password: "" });
 
   const handleSubmit = (e) => {
     e.preventDefault();
     try {
       const user = loginUser(formData.email, formData.password);
-
-      setUser(user);
-
-      toast.success("Welcome back! ❤️");
-
-      navigate("/wishlist", { replace: true });
+      if (user) {
+        setUser(user);
+        toast.success(`Welcome back, ${user.username}! ❤️`);
+        navigate("/", { replace: true });
+      }
     } catch (error) {
       toast.error(error.message);
     }
   };
-
   return (
     <div className="flex mx-auto justify-center items-center min-h-[80vh]">
       <div className="relative z-10 w-full max-w-md p-8 mx-4 bg-slate-900/40 backdrop-blur-2xl border border-white/10 rounded-[2rem] shadow-2xl">
@@ -43,7 +37,6 @@ const Login = () => {
 
         <form className="space-y-6" onSubmit={handleSubmit}>
           <div className="space-y-4">
-            {/* Email Input */}
             <div className="relative group">
               <Mail
                 className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 group-focus-within:text-blue-500 transition-colors"
@@ -57,11 +50,10 @@ const Login = () => {
                 onChange={(e) =>
                   setFormData({ ...formData, email: e.target.value })
                 }
-                className="w-full pl-12 pr-4 py-4 bg-slate-950/50 border border-white/10 rounded-2xl text-white placeholder:text-slate-600 focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all"
+                className="w-full pl-12 pr-4 py-4 bg-slate-950/50 border border-white/10 rounded-2xl text-white focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all"
               />
             </div>
 
-            {/* Password Input */}
             <div className="relative group">
               <Lock
                 className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 group-focus-within:text-blue-500 transition-colors"
@@ -75,18 +67,9 @@ const Login = () => {
                 onChange={(e) =>
                   setFormData({ ...formData, password: e.target.value })
                 }
-                className="w-full pl-12 pr-4 py-4 bg-slate-950/50 border border-white/10 rounded-2xl text-white placeholder:text-slate-600 focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all"
+                className="w-full pl-12 pr-4 py-4 bg-slate-950/50 border border-white/10 rounded-2xl text-white focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all"
               />
             </div>
-          </div>
-
-          <div className="flex justify-end">
-            <button
-              type="button"
-              className="text-sm text-blue-500 hover:underline font-medium"
-            >
-              Forgot password?
-            </button>
           </div>
 
           <button

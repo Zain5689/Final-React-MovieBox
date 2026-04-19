@@ -10,11 +10,8 @@ export const useMovieStore = create(
 
       toggleWishlist: (movie) => {
         const currentUser = get().user;
-
         if (!currentUser) {
-          toast.error("Please login to manage your wishlist! ❤️", {
-            style: { background: "#333", color: "#fff", borderRadius: "10px" },
-          });
+          toast.error("Please login to manage your wishlist! ❤️");
           return false;
         }
 
@@ -35,12 +32,9 @@ export const useMovieStore = create(
 
       logout: () => {
         set({ user: null, wishlist: [] });
-        localStorage.removeItem("user-storage");
         toast.success("Logged out successfully");
       },
     }),
-    {
-      name: "user-storage",
-    },
+    { name: "user-storage" },
   ),
 );

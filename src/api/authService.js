@@ -11,7 +11,6 @@ export const registerUser = (username, email, password) => {
 
 export const loginUser = (email, password) => {
   const users = JSON.parse(localStorage.getItem("users") || "[]");
-
   const cleanEmail = email.trim();
   const cleanPassword = password.trim();
 

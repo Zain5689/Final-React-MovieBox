@@ -1,14 +1,11 @@
 import { useState } from "react";
 import { Mail, Lock, User, UserPlus, ArrowRight } from "lucide-react";
 import { Link, useNavigate } from "react-router";
-import { useMovieStore } from "../store/useMovieStore";
 import toast from "react-hot-toast";
 import { registerUser } from "@/api/authService";
 
 const Register = () => {
   const navigate = useNavigate();
-  const setUser = useMovieStore((state) => state.setUser);
-
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -18,13 +15,9 @@ const Register = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     try {
-      const newUser = registerUser(formData.email, formData.password);
-
-      setUser(newUser);
-
-      toast.success("Account created! You can now use your Wishlist ❤️");
-
-      navigate("/wishlist");
+      registerUser(formData.name, formData.email, formData.password);
+      toast.success("Account created! Please login ❤️");
+      navigate("/login", { replace: true });
     } catch (error) {
       toast.error(error.message);
     }
@@ -44,7 +37,6 @@ const Register = () => {
 
         <form className="space-y-6" onSubmit={handleSubmit}>
           <div className="space-y-4">
-            {/* Full Name */}
             <div className="relative group">
               <User
                 className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 group-focus-within:text-blue-500 transition-colors"
@@ -54,14 +46,13 @@ const Register = () => {
                 required
                 type="text"
                 placeholder="Full Name"
-                className="w-full pl-12 pr-4 py-4 bg-slate-950/50 border border-white/10 rounded-2xl text-white placeholder:text-slate-600 focus:ring-2 focus:ring-blue-500/50 outline-none transition-all"
+                className="w-full pl-12 pr-4 py-4 bg-slate-950/50 border border-white/10 rounded-2xl text-white outline-none focus:ring-2 focus:ring-blue-500/50 transition-all"
                 onChange={(e) =>
                   setFormData({ ...formData, name: e.target.value })
                 }
               />
             </div>
 
-            {/* Email Address */}
             <div className="relative group">
               <Mail
                 className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 group-focus-within:text-blue-500 transition-colors"
@@ -71,14 +62,13 @@ const Register = () => {
                 required
                 type="email"
                 placeholder="Email Address"
-                className="w-full pl-12 pr-4 py-4 bg-slate-950/50 border border-white/10 rounded-2xl text-white placeholder:text-slate-600 focus:ring-2 focus:ring-blue-500/50 outline-none transition-all"
+                className="w-full pl-12 pr-4 py-4 bg-slate-950/50 border border-white/10 rounded-2xl text-white outline-none focus:ring-2 focus:ring-blue-500/50 transition-all"
                 onChange={(e) =>
                   setFormData({ ...formData, email: e.target.value })
                 }
               />
             </div>
 
-            {/* Password */}
             <div className="relative group">
               <Lock
                 className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 group-focus-within:text-blue-500 transition-colors"
@@ -88,7 +78,7 @@ const Register = () => {
                 required
                 type="password"
                 placeholder="Password"
-                className="w-full pl-12 pr-4 py-4 bg-slate-950/50 border border-white/10 rounded-2xl text-white placeholder:text-slate-600 focus:ring-2 focus:ring-blue-500/50 outline-none transition-all"
+                className="w-full pl-12 pr-4 py-4 bg-slate-950/50 border border-white/10 rounded-2xl text-white outline-none focus:ring-2 focus:ring-blue-500/50 transition-all"
                 onChange={(e) =>
                   setFormData({ ...formData, password: e.target.value })
                 }

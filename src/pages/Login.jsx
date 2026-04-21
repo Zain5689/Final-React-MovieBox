@@ -17,12 +17,13 @@ const Login = () => {
       if (user) {
         setUser(user);
         toast.success(`Welcome back, ${user.username}! ❤️`);
-        navigate("/", { replace: true });
+        navigate("/wishlist", { replace: true });
       }
     } catch (error) {
       toast.error(error.message);
     }
   };
+
   return (
     <div className="flex mx-auto justify-center items-center min-h-[80vh]">
       <div className="relative z-10 w-full max-w-md p-8 mx-4 bg-slate-900/40 backdrop-blur-2xl border border-white/10 rounded-[2rem] shadow-2xl">
@@ -47,10 +48,10 @@ const Login = () => {
                 type="email"
                 placeholder="Email Address"
                 value={formData.email}
+                className="w-full pl-12 pr-4 py-4 bg-slate-950/50 border border-white/10 rounded-2xl text-white focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all"
                 onChange={(e) =>
                   setFormData({ ...formData, email: e.target.value })
                 }
-                className="w-full pl-12 pr-4 py-4 bg-slate-950/50 border border-white/10 rounded-2xl text-white focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all"
               />
             </div>
 
@@ -64,10 +65,10 @@ const Login = () => {
                 type="password"
                 placeholder="Password"
                 value={formData.password}
+                className="w-full pl-12 pr-4 py-4 bg-slate-950/50 border border-white/10 rounded-2xl text-white focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all"
                 onChange={(e) =>
                   setFormData({ ...formData, password: e.target.value })
                 }
-                className="w-full pl-12 pr-4 py-4 bg-slate-950/50 border border-white/10 rounded-2xl text-white focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all"
               />
             </div>
           </div>

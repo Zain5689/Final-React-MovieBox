@@ -14,6 +14,7 @@ import Register from "./pages/Register";
 import SearchResults from "./pages/SearchResults";
 import PersonDetails from "./pages/PersonDetails";
 import { PrivateRoute } from "./components/common/PrivateRoute";
+import { Toaster } from "react-hot-toast";
 
 const router = createBrowserRouter([
   {
@@ -70,6 +71,17 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
+    <Toaster
+      position="top-center"
+      toastOptions={{
+        duration: 3000,
+        style: {
+          background: "#0f172a",
+          color: "#fff",
+          border: "1px solid rgba(255,255,255,0.1)",
+        },
+      }}
+    />
     <RouterProvider router={router} />
   </StrictMode>,
 );

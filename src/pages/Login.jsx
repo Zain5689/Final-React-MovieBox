@@ -20,6 +20,7 @@ const Login = () => {
         navigate("/wishlist", { replace: true });
       }
     } catch (error) {
+      console.log("Caught Error:", error.message);
       toast.error(error.message);
     }
   };
